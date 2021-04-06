@@ -1,4 +1,4 @@
-FROM debian:buster 
+FROM debian:buster-slim
 
 LABEL maintainer "simon@hestor.com"
 
@@ -32,15 +32,6 @@ RUN apt-get update \
   wget \
   make \
   cpanminus \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN wget -N https://imapsync.lamiral.info/imapsync \
-  https://imapsync.lamiral.info/prerequisites_imapsync \
-  && cp imapsync /usr/bin/imapsync \
-  && chmod +x /usr/bin/imapsync  # just_a_comment_to_force_update 2018_09_13_14_44_03
-
-RUN apt-get update && \
-  apt-get install -y \
   libdist-checkconflicts-perl \
   libfile-tail-perl \
   libtest-fatal-perl \
@@ -48,6 +39,11 @@ RUN apt-get update && \
   libtest-requires-perl \
   libtest-deep-perl \
   && rm -rf /var/lib/apt/lists/*
+
+RUN wget -N https://imapsync.lamiral.info/imapsync \
+  https://imapsync.lamiral.info/prerequisites_imapsync \
+  && cp imapsync /usr/bin/imapsync \
+  && chmod +x /usr/bin/imapsync  # just_a_comment_to_force_update 2018_09_13_14_44_03
 
 USER nobody
 
